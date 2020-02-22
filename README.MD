@@ -1,1 +1,1 @@
-NTIN060 Algoritmy a Datové Štruktúry
+# NTIN060 Algoritmy a Datové Štruktúry
