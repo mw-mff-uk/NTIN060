@@ -74,4 +74,4 @@ Po súčte všetkých troch fáz dostaneme `O(3n + 2m) = O(n + m)`.
 
 ### Priestorová zložitosť
 
-Algoritmus pracuje s pomocnými polami `P` a `D`, ktoré majú dĺžku `n`. Okrem toho potrebuje pamäť pre zásobník, kde v jeden moment nemôže byť viac, ako `n` prvkov. Spolu teda vyžaduje `O(3n) = O(n)` pamäte.
+Algoritmus pracuje s pomocnými poľami `P` a `D`, ktoré majú dĺžku `n`. Okrem toho potrebuje pamäť pre zásobník, kde v jeden moment nemôže byť viac, ako `n` prvkov. Spolu teda vyžaduje `O(3n) = O(n)` pamäte.
