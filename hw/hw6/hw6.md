@@ -1,4 +1,4 @@
-# NTIN060 | Homework 05/5
+# NTIN060 | Homework 06/6
 
 Milan Wikarski (milan@wikarski.sk)
 
