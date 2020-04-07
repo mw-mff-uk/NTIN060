@@ -10,7 +10,7 @@ Milan Wikarski (milan@wikarski.sk)
 
 Majme súvislý rovinný graf <code>G = (V, E)</code>, zobrazenie <code>E -> w</code>, ktoré každej hrane priradí nejakú váhu. Hľadáme minimálnu kostru grafu <code>G</code>.
 
-Pre nájdenie minimálnej kostry grafu <code>G</code> použijeme Jarníkův algoritmus. Vyberieme si nejaký vrchol <code>v<sub>0</sub></code> (náhodne) a začneme so stromom <code>T = ({v<sub>0</sub>}, {})</code>, ktorý obsahuje iba vrchol <code>v<sub>0</sub></code> a žiadne hrany.
+Pre nájdenie minimálnej kostry grafu <code>G</code> použijeme Jarníkův algoritmus. Vyberieme si nejaký vrchol <code>v0</code> (náhodne) a začneme so stromom <code>T = ({v0}, {})</code>, ktorý obsahuje iba vrchol <code>v0</code> a žiadne hrany.
 
 ### Stav vrcholov
 
