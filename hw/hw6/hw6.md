@@ -34,29 +34,29 @@ Ohodnotenie hrán si uložíme do minimálnej haldy, ktorá bude mať operácie 
 
 ### Predchodcovia
 
-Ďalej si budeme držať pole predchodcov <code>pred[v]</code>. Bude platiť, že ak <code>eval[v] < +∞</code>, potom hrana <code>e = {v, pred[v]}</code> je hrana s najnižším ohodnotením, ktorá vedie z vrchola <code>v</code> do nejakého vrchola <code>u ∊ V(T)</code>.
+Ďalej si budeme držať pole predchodcov <code>pred[v]</code>. Bude platiť, že ak <code>state[v] = NEIGHBOR</code>, potom hrana <code>e = {v, pred[v]}</code> je hrana s najnižším ohodnotením, ktorá vedie z vrchola <code>v</code> do nejakého vrchola <code>u ∊ V(T)</code>.
 
 ### Beh algoritmu
 
-V každom kroku algoritmu si vyberieme vrchol <code>v ∊ V</code> s najnižším ohodnotením <code>eval[v]</code> z haldy a pripojíme ho ku grafu <code>T</code> hranou <code>e = {v, pred[v]}</code>. Ďalej prepočítame hodnotu <code>eval[u]</code> pre všetkých susedov <code>u</code> vrchola <code>v</code>, ktorí nepatria do <code>T</code> (konkrétne ju znížime, ak hrana medzi vrcholmi <code>u</code> a <code>v</code> má nižšiu váhu, ako je hodnota <code>eval[u]</code>).
+V každom kroku algoritmu si vyberieme vrchol <code>v ∊ V</code> s najnižším ohodnotením <code>eval[v]</code> z haldy (pomocou operácie ExtractMin), zmeníme stav vrchola <code>v</code> na <code>IN</code> a pripojíme ho ku grafu <code>T</code> hranou <code>e = {v, pred[v]}</code>. Ďalej prepočítame hodnotu <code>eval[u]</code> pre všetkých susedov <code>u</code> vrchola <code>v</code>, ktorí nepatria do <code>T</code> (tzn. platí <code>state[u] != IN</code>); konkrétne ju znížime, ak hrana medzi vrcholmi <code>u</code> a <code>v</code> má nižšiu váhu, ako je hodnota <code>eval[u]</code>.
 
 ### Správnosť
 
 Tu je dôležité, že ani hrana <code>e</code>, ani vrchol <code>v</code> nepatria do grafu <code>T</code>, a teda ku <code>T</code> pripájame listy. Z toho dostávame, že graf <code>T</code> bude počas celého behu algoritmu strom.
 
-Algoritmus sa po najviac <code>n</code> krokoch zastaví, keďže v každom kroku sme ku grafu <code>T</code> pridali jeden vrchol.
+Algoritmus sa po najviac <code>n</code> krokoch zastaví, keďže v každom kroku sme ku stromu <code>T</code> pridali jeden vrchol.
 
 V každom kroku vyberáme najľahšiu hranu elementárneho rezu medzi stromom <code>T</code> a zvyškom grafu. Všetky vybrané hrany teda ležia v minimálnej kostre, a teda strom <code>T</code> je minimálnou kostrou grafu <code>G</code>.
 
 ## Algoritmus
 
 ```C
-ALGORITMUS: PravdepodobnostUspechuPrenosu
+ALGORITMUS: Jarníkův
 ---------------------------------------------------------------
  INPUT: graf G = (V, E), zobrazenie E -> w
 OUTPUT: Strom T, ktorý je minimálnou kostrou grafu G
 
- 1. for ∀ v ∊ V:
+ 1. for (∀ v ∊ V):
  2.   eval[v] <- +∞
  3.   pred[v] <- null
  4.   state[v] <- OUT
@@ -64,12 +64,12 @@ OUTPUT: Strom T, ktorý je minimálnou kostrou grafu G
  6. eval[v0] <- 0
  7. state[v0] <- NEIGHBOR
  8. while (exists v ∊ V such that state[v] = NEIGHBOR):
- 9.   v <- ExtractMin(pred)                                 ⊲ Vyberieme vrchol s najnižšou hodnotou eval z haldy
+ 9.   v <- ExtractMin(eval)                               ⊲ Vyberieme vrchol s najnižšou hodnotou eval z haldy
 10.   state[v] <- IN
-11.   if (pred[v] is not null):                             ⊲ Nutná kontrola, pretože pred[v0] is null
-12.     V(T) <- V(T) ∪ {v}
-13.     E(T) <- E(T) ∪ {v, pred[v]}                         ⊲ Pridáme list ku stromu T
-14.   for (∀ u; u is neighbour of v):                       ⊲ Každý vrchol u spojený hranou s vrcholom v
+11.   if (pred[v] is not null):                           ⊲ Nutná kontrola, pretože pred[v0] is null
+12.     V(T) <- V(T) ∪ {v}                                ⊲ Pridáme vrchol v
+13.     E(T) <- E(T) ∪ {v, pred[v]}                       ⊲ Pridáme hranu {v, pred[v]}
+14.   for (∀ u; u is neighbour of v):                     ⊲ Každý vrchol u spojený hranou s vrcholom v
 15.     if (state[u] != IN and eval[u] > w({u, v})):
 16.       state[u] <- NEIGHBOR
 17.       eval[u] <- w({u, v})
